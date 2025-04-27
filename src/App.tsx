@@ -1,35 +1,55 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// App.tsx
+import { useState } from 'react';
+import './App.css';
+import Header from './components/Header/Header';
+import SelectMode, { GameMode } from './components/SelectMode/SelectMode';
+import StandardCounter from './components/Counters/StandardCounter/StandardCounter';
+import DcCounter from './components/Counters/DualCommanderCounter/DcCounter';
+import { useIsMobile } from './hooks/useIsMobile';
+
+// Importaremos los otros contadores cuando los creemos
+const CommanderCounter = () => <div className="counter-container">Contador para Commander</div>;
+const ArchenemyCounter = () => <div className="counter-container">Contador para Archenemy</div>;
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [selectedMode, setSelectedMode] = useState<GameMode | null>(null);
+  const isMobile = useIsMobile();
+
+  const handleBackToSelection = () => setSelectedMode(null);
+
+  const renderCounter = () => {
+    switch (selectedMode) {
+      case 'standard':
+        return <StandardCounter onBackToModeSelect={handleBackToSelection}/>;
+      case 'commander':
+        return <CommanderCounter />;
+      case 'commander1v1':
+        return <DcCounter onBackToModeSelect={handleBackToSelection}/>;
+      case 'archenemy':
+        return <ArchenemyCounter />;
+      default:
+        return null;
+    }
+  };
+
+  const showHeader = !selectedMode || !isMobile;
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {showHeader && (
+        <Header
+        />
+      )}
+      <main>
+        {!selectedMode && <SelectMode onModeSelect={setSelectedMode} />}
+        {selectedMode && (
+          <div className="game-container">
+            {renderCounter()}
+          </div>
+        )}
+      </main>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

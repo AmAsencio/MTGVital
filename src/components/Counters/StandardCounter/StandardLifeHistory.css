@@ -1,0 +1,107 @@
+.life-history {
+    margin-top: 24px;
+    border-radius: 12px;
+    background: rgba(42, 36, 31, 0.8);
+    border: 1px solid rgba(191, 161, 76, 0.2);
+    overflow: hidden;
+    max-height: 200px;
+}
+
+.history-title {
+    color: #f6e7b6;
+    font-family: 'Garamond', 'Georgia', serif;
+    font-size: 1.2rem;
+    margin: 0;
+    padding: 12px 16px;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(191, 161, 76, 0.2);
+}
+
+.history-entries {
+    padding: 8px 0;
+    overflow-y: auto;
+    max-height: 150px;
+}
+
+.history-entry {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    gap: 12px;
+    padding: 8px 16px;
+    border-bottom: 1px solid rgba(191, 161, 76, 0.1);
+    align-items: center;
+}
+
+.history-entry:last-child {
+    border-bottom: none;
+}
+
+.history-player {
+    color: #f6e7b6;
+    font-weight: 600;
+    font-size: 0.95rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.history-change {
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-align: center;
+    min-width: 40px;
+}
+
+.history-change.positive {
+    color: #4c7dbf;
+    background: rgba(76, 125, 191, 0.15);
+}
+
+.history-change.negative {
+    color: #bf4c4c;
+    background: rgba(191, 76, 76, 0.15);
+}
+
+.history-life {
+    color: #bfa14c;
+    font-weight: bold;
+    text-align: center;
+}
+
+.history-time {
+    color: rgba(246, 231, 182, 0.6);
+    font-size: 0.85rem;
+}
+
+@media (max-width: 480px) {
+    .history-entries {
+        max-height: 120px;
+    }
+
+    .history-entry {
+        grid-template-columns: 1fr auto auto;
+        grid-template-areas:
+            "player change life"
+            "time time time";
+        padding: 10px 12px;
+    }
+
+    .history-player {
+        grid-area: player;
+    }
+
+    .history-change {
+        grid-area: change;
+    }
+
+    .history-life {
+        grid-area: life;
+    }
+
+    .history-time {
+        grid-area: time;
+        text-align: right;
+        padding-top: 4px;
+    }
+}

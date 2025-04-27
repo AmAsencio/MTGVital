@@ -1,0 +1,118 @@
+.mtgvital-header {
+    position: relative;
+    background: transparent;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.header-glow {
+    position: absolute;
+    top: -60px;
+    left: -100px;
+    width: 340px;
+    height: 260px;
+    filter: blur(32px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.header-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 20px 32px;
+    z-index: 1;
+}
+
+.header-logo {
+    width: 80px;
+    height: 80px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 8px #bfa14c55, 0 1px 2px #0007;
+    border: 3px solid #bfa14c;
+    object-fit: contain;
+    transition: transform 0.2s;
+}
+
+.header-logo:hover {
+    transform: scale(1.08) rotate(-3deg);
+    box-shadow: 0 4px 12px #bfa14c88, 0 2px 2px #0007;
+}
+
+.header-text {
+    flex: 1;
+    margin-left: 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.header-title {
+    color: #f6e7b6;
+    font-family: 'Garamond', 'Georgia', serif;
+    font-size: 2.7rem;
+    letter-spacing: 2.5px;
+    margin: 0;
+    font-weight: 800;
+    text-shadow: 0 2px 12px #bfa14c88, 0 1px 2px #1a1410;
+}
+
+.header-subtitle {
+    color: #bfa14c;
+    font-size: 1.15rem;
+    margin-top: 8px;
+    font-family: 'Garamond', 'Georgia', serif;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 4px #1a141099;
+}
+
+.header-cta {
+    background: linear-gradient(90deg, #bfa14c 30%, #f6e7b6 100%);
+    color: #1a1410;
+    font-family: 'Garamond', 'Georgia', serif;
+    font-weight: bold;
+    font-size: 1.07rem;
+    padding: 12px 30px;
+    border-radius: 10px;
+    text-decoration: none;
+    box-shadow: 0 2px 8px #bfa14c44;
+    margin-left: 40px;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+    border: none;
+    outline: none;
+    position: relative;
+    z-index: 2;
+}
+
+.header-cta:hover {
+    background: linear-gradient(90deg, #f6e7b6 0%, #bfa14c 100%);
+    color: #5a4a1a;
+    box-shadow: 0 4px 16px #f6e7b655;
+    transform: scale(1.05);
+}
+
+@media (max-width: 600px) {
+    .header-content {
+        align-items: center;
+        padding: 14px 6px;
+    }
+
+    .header-text {
+        margin-left: 0;
+        align-items: center;
+        padding: 0 10px;
+    }
+
+    .header-title {
+        font-size: 2.2rem;
+        letter-spacing: 1.5px;
+    }
+
+    .header-subtitle {
+        font-size: 0.75rem;
+    }
+
+}

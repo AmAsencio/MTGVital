@@ -1,0 +1,151 @@
+.player-counter {
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    border: 2px solid var(--player-color, #bfa14c);
+    background: linear-gradient(135deg, rgba(42, 36, 31, 0.9) 0%, rgba(26, 20, 16, 0.95) 100%);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(191, 161, 76, 0.2);
+    overflow: hidden;
+    height: 95%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.player-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(191, 161, 76, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.player-name {
+    color: #f6e7b6;
+    margin: 0;
+    font-family: 'Garamond', 'Georgia', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.player-name:hover {
+    color: var(--player-color, #bfa14c);
+}
+
+.player-name-input {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--player-color, #bfa14c);
+    border-radius: 4px;
+    color: #f6e7b6;
+    font-family: 'Garamond', 'Georgia', serif;
+    font-size: 1.4rem;
+    padding: 4px 8px;
+    width: 60%;
+}
+
+.toggle-counter-btn {
+    background: rgba(191, 161, 76, 0.2);
+    color: #bfa14c;
+    border: 1px solid #bfa14c;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.toggle-counter-btn:hover {
+    background: rgba(191, 161, 76, 0.3);
+    transform: translateY(-2px);
+}
+
+.life-counter,
+.dmgCommander-counter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.counter-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.counter-value {
+    font-size: 5rem;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.life-value {
+    color: #f6e7b6;
+}
+
+.dmgCommander-value {
+    color: #b29547;
+}
+
+.dmgCommander-value small {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-top: 4px;
+}
+
+.counter-btn {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.counter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.counter-btn:active {
+    transform: translateY(1px);
+}
+
+.decrement,
+.decrement-lg {
+    background: linear-gradient(135deg, #bf4c4c 0%, #a53030 100%);
+    color: white;
+}
+
+.increment,
+.increment-lg {
+    background: linear-gradient(135deg, #4c7dbf 0%, #3060a5 100%);
+    color: white;
+}
+
+.dmgCommander-decrement {
+    background: #635327;
+    color: white;
+}
+
+.dmgCommander-increment {
+    background: #b29547;
+    color: white;
+}
+
+.counter-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
