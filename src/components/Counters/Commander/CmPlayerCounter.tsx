@@ -21,6 +21,7 @@ interface CmPlayerProps {
     onDamageGridChange: (targetId: number, fromId: number, value: number) => void;
 }
 
+
 const CmPlayerCounter: React.FC<CmPlayerProps> = ({
     id,
     name,
@@ -51,70 +52,144 @@ const CmPlayerCounter: React.FC<CmPlayerProps> = ({
     if (total === 4) { columns = 2; rows = 2; }
 
     const renderGridSquares = () => {
-        return players.map((p, idx) => {
-            const isMe = p.id === id;
-            const value = damageGrid?.[id]?.[p.id] ?? 0;
-            let bg = isMe ? '#e5e5e5' : p.color;
-            let colorTxt = isMe ? '#222' : '#fff';
-
-            if (!isMe && Number(value) > 0) {
-                bg = p.color;
-            } else if (!isMe) {
-                bg = '#bfcfdc';
-                colorTxt = '#222';
-            }
-            if (isMe) colorTxt = '#222';
-
-            let longPressTimeout: NodeJS.Timeout;
-            const handleTouchStart = () => {
-                longPressTimeout = setTimeout(() => {
-                    if (p.id !== id && Number(value) > 0) {
-                        onLifeChange(id, 1);
-                        onDamageGridChange(id, p.id, Math.max(0, Number(value) - 1));
-                    }
-                }, 450); // 450ms para considerar pulsación larga
-            };
-            const handleTouchEnd = () => {
-                clearTimeout(longPressTimeout);
-            };
-
-            // Para 5 jugadores: el último cuadrado ocupa dos columnas
-            const extraProps = (total === 5 && idx === 4)
-                ? { className: "cm-grid-square cm-grid-square--wide" }
-                : { className: "cm-grid-square" };
-
+        // Para 5 jugadores, crear un layout especial
+        if (total === 5) {
             return (
-                <div
-                    key={p.id}
-                    {...extraProps}
-                    style={{
-                        background: bg,
-                        color: colorTxt,
-                        border: `3px solid ${p.color}`,
-                        boxShadow: Number(value) > 0 ? '0 0 0 2px #fff' : '0 1px 8px rgba(0,0,0,0.12)',
-                    }}
-                    onClick={() => {
-                        onDamageGridChange(id, p.id, Number(value) + 1);
-                        if (p.id !== id) {
-                            onLifeChange(id, -1);
-                        }
-                    }}
-                    onContextMenu={e => {
-                        e.preventDefault();
-                        onDamageGridChange(id, p.id, Math.max(0, Number(value) - 1));
-                        if (p.id !== id && Number(value) > 0) {
-                            onLifeChange(id, 1);
-                        }
-                    }}
-                    onTouchStart={handleTouchStart}
-                    onTouchEnd={handleTouchEnd}
-                    title={isMe ? 'Yo' : p.name}
-                >
-                    {isMe ? 'Yo' : value}
+                <div  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(3, 1fr)',
+                    gridTemplateRows: 'repeat(2, auto)',
+                    gap: '6px'
+                }}>
+                    {/* Primera fila: jugadores 1, 2 y 3 */}
+                    {players.slice(0, 3).map(p => {
+                        const isMe = p.id === id;
+                        const value = damageGrid?.[id]?.[p.id] ?? 0;
+                        let bg = '#e5e5e5';
+                        let colorTxt = '#222';
+
+                        return (
+                            <div
+                                key={p.id}
+                                className="cm-grid-square"
+                                style={{
+                                    background: bg,
+                                    color: colorTxt,
+                                    border: `3px solid ${p.color}`
+                                }}
+                                onClick={() => {
+                                    onDamageGridChange(id, p.id, Number(value) + 1);
+                                    if (p.id !== id) {
+                                        onLifeChange(id, -1);
+                                    }
+                                }}
+                                onContextMenu={e => {
+                                    e.preventDefault();
+                                    onDamageGridChange(id, p.id, Math.max(0, Number(value) - 1));
+                                    if (p.id !== id && Number(value) > 0) {
+                                        onLifeChange(id, 1);
+                                    }
+                                }}
+                                title={isMe ? 'Yo' : p.name}
+                            >
+                                {isMe ? 'Yo' : value}
+                            </div>
+                        );
+                    })}
+
+                    {/* Segunda fila: jugadores 4 y 5 centrados */}
+                    <div style={{
+                        gridColumn: '1 / span 3',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        gap: '6px'
+                    }}>
+                        {players.slice(3, 5).map(p => {
+                            const isMe = p.id === id;
+                            const value = damageGrid?.[id]?.[p.id] ?? 0;
+                            let bg = '#e5e5e5';
+                            let colorTxt = '#222';
+
+                            return (
+                                <div
+                                    key={p.id}
+                                    className="cm-grid-square"
+                                    style={{
+                                        background: bg,
+                                        color: colorTxt,
+                                        border: `3px solid ${p.color}`
+                                    }}
+                                    onClick={() => {
+                                        onDamageGridChange(id, p.id, Number(value) + 1);
+                                        if (p.id !== id) {
+                                            onLifeChange(id, -1);
+                                        }
+                                    }}
+                                    onContextMenu={e => {
+                                        e.preventDefault();
+                                        onDamageGridChange(id, p.id, Math.max(0, Number(value) - 1));
+                                        if (p.id !== id && Number(value) > 0) {
+                                            onLifeChange(id, 1);
+                                        }
+                                    }}
+                                    title={isMe ? 'Yo' : p.name}
+                                >
+                                    {isMe ? 'Yo' : value}
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
             );
-        });
+        }
+
+        // Para otros números de jugadores, mantener el grid normal
+        return (
+            <div style={{
+                display: 'grid',
+                gridTemplateColumns: `repeat(${columns}, 1fr)`,
+                gridTemplateRows: `repeat(${rows}, 1fr)`,
+                gap: '6px'
+            }}>
+                {players.map(p => {
+                    const isMe = p.id === id;
+                    const value = damageGrid?.[id]?.[p.id] ?? 0;
+                    let bg = '#e5e5e5';
+                    let colorTxt = '#222';
+
+                    return (
+                        <div
+                            key={p.id}
+                            className="cm-grid-square"
+                            style={{
+                                background: bg,
+                                color: colorTxt,
+                                border: `3px solid ${p.color}`
+                            }}
+                            onClick={() => {
+                                onDamageGridChange(id, p.id, Number(value) + 1);
+                                if (p.id !== id) {
+                                    onLifeChange(id, -1);
+                                }
+                            }}
+                            onContextMenu={e => {
+                                e.preventDefault();
+                                onDamageGridChange(id, p.id, Math.max(0, Number(value) - 1));
+                                if (p.id !== id && Number(value) > 0) {
+                                    onLifeChange(id, 1);
+                                }
+                            }}
+                            title={isMe ? 'Yo' : p.name}
+                        >
+                            {isMe ? 'Yo' : value}
+                        </div>
+                    );
+                })}
+            </div>
+        );
     };
+
+
 
     return (
         <div className="cm-player-counter" style={{ borderColor: color }}>
@@ -162,7 +237,6 @@ const CmPlayerCounter: React.FC<CmPlayerProps> = ({
 
                         {/* GRID DE DAÑO RECIBIDO */}
                         <div className="cm-damage-grid" style={{
-                            gridTemplateColumns: `repeat(${columns}, auto)`,
                             gridTemplateRows: `repeat(${rows}, auto)`
                         }}>
                             {renderGridSquares()}

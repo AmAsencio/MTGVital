@@ -78,6 +78,119 @@ const CmCounter: React.FC<CmCounterProps> = ({ onBackToModeSelect }) => {
         });
     }, [players.length]);
 
+    const renderPlayerGrid = () => {
+        const total = players.length;
+        let columns = 2, rows = 2;
+
+        if (total === 3) { columns = 3; rows = 1; }
+        if (total === 5 || total === 6) { columns = 3; rows = 2; }
+        if (total === 4) { columns = 2; rows = 2; }
+
+        // Para 5 jugadores, creamos un grid especial con áreas nombradas
+        if (total === 5) {
+            return (
+                <div className="cm-player-grid" style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(3, 1fr)',
+                    gridTemplateRows: 'repeat(2, 1fr)',
+                    gap: '10px',
+                    width: '100%',
+                    height: '100%'
+                }}>
+                    {/* Primera fila: jugadores 1, 2 y 3 */}
+                    <div style={{ gridColumn: '1 / span 1', gridRow: 1 }}>
+                        <CmPlayerCounter
+                            key={players[0].id}
+                            {...players[0]}
+                            onLifeChange={handleLifeChange}
+                            onPoisonCounterChange={handlePoisonCounterChange}
+                            onNameChange={handleNameChange}
+                            players={players}
+                            damageGrid={damageGrid}
+                            onDamageGridChange={handleDamageGridChange}
+                        />
+                    </div>
+                    <div style={{ gridColumn: '2 / span 1', gridRow: 1 }}>
+                        <CmPlayerCounter
+                            key={players[1].id}
+                            {...players[1]}
+                            onLifeChange={handleLifeChange}
+                            onPoisonCounterChange={handlePoisonCounterChange}
+                            onNameChange={handleNameChange}
+                            players={players}
+                            damageGrid={damageGrid}
+                            onDamageGridChange={handleDamageGridChange}
+                        />
+                    </div>
+                    <div style={{ gridColumn: '3 / span 1', gridRow: 1 }}>
+                        <CmPlayerCounter
+                            key={players[2].id}
+                            {...players[2]}
+                            onLifeChange={handleLifeChange}
+                            onPoisonCounterChange={handlePoisonCounterChange}
+                            onNameChange={handleNameChange}
+                            players={players}
+                            damageGrid={damageGrid}
+                            onDamageGridChange={handleDamageGridChange}
+                        />
+                    </div>
+
+                    {/* Segunda fila: jugadores 4 y 5 centrados */}
+                    <div style={{ gridColumn: '1 / span 3', gridRow: 2, display: 'flex', justifyContent: 'center', gap: '10px' }}>
+                        <CmPlayerCounter
+                            key={players[3].id}
+                            {...players[3]}
+                            onLifeChange={handleLifeChange}
+                            onPoisonCounterChange={handlePoisonCounterChange}
+                            onNameChange={handleNameChange}
+                            players={players}
+                            damageGrid={damageGrid}
+                            onDamageGridChange={handleDamageGridChange}
+                        />
+                        <CmPlayerCounter
+                            key={players[4].id}
+                            {...players[4]}
+                            onLifeChange={handleLifeChange}
+                            onPoisonCounterChange={handlePoisonCounterChange}
+                            onNameChange={handleNameChange}
+                            players={players}
+                            damageGrid={damageGrid}
+                            onDamageGridChange={handleDamageGridChange}
+                        />
+                    </div>
+                </div>
+            );
+        }
+
+        // Para otros números de jugadores, mantener el grid normal
+        return (
+            <div className="cm-player-grid" style={{
+                display: 'grid',
+                gridTemplateColumns: `repeat(${columns}, 1fr)`,
+                gridTemplateRows: `repeat(${rows}, 1fr)`,
+                gap: '10px',
+                width: '100%',
+                height: '100%'
+            }}>
+                {players.map((player) => (
+                    <CmPlayerCounter
+                        key={player.id}
+                        {...player}
+                        onLifeChange={handleLifeChange}
+                        onPoisonCounterChange={handlePoisonCounterChange}
+                        onNameChange={handleNameChange}
+                        players={players}
+                        damageGrid={damageGrid}
+                        onDamageGridChange={handleDamageGridChange}
+                    />
+                ))}
+            </div>
+        );
+    };
+
+
+
+
     const handleLifeChange = (playerId: number, amount: number) => {
         const playerToUpdate = players.find(player => player.id === playerId);
         if (playerToUpdate) {
@@ -207,28 +320,7 @@ const CmCounter: React.FC<CmCounterProps> = ({ onBackToModeSelect }) => {
             )}
 
             <div className={`cm-player-grid ${isMobile ? 'cm-mobile-grid' : ''}`}>
-                {players.map((player, idx) => {
-                    let rotateClass = "";
-                    if (isMobile) {
-                        rotateClass = (idx % 2 === 0) ? "rotate-left" : "rotate-right";
-                    }
-                    return (
-                        <div
-                            key={player.id}
-                            className={`player-grid-item ${rotateClass}`}
-                        >
-                            <CmPlayerCounter
-                                {...player}
-                                players={players}
-                                damageGrid={damageGrid}
-                                onLifeChange={handleLifeChange}
-                                onPoisonCounterChange={handlePoisonCounterChange}
-                                onNameChange={handleNameChange}
-                                onDamageGridChange={handleDamageGridChange}
-                            />
-                        </div>
-                    );
-                })}
+                {renderPlayerGrid()}
             </div>
 
             {isMobile && (
