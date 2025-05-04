@@ -6,11 +6,11 @@ import { ResetIcon, ExitIcon, HistoryIcon } from '../../Icons/Icons';
 import { useIsMobile } from '../../../hooks/useIsMobile';
 
 
-interface StandardCounterProps {
+interface DcCounterProps {
     onBackToModeSelect: () => void;
 }
 
-const StandardCounter: React.FC<StandardCounterProps> = ({ onBackToModeSelect }) => {
+const DcCounter: React.FC<DcCounterProps> = ({ onBackToModeSelect }) => {
     const [players, setPlayers] = useState([
         { id: 1, name: "Jugador 1", life: 30, dmgCommander: 0, color: "#bf4c4c" },
         { id: 2, name: "Jugador 2", life: 30, dmgCommander: 0, color: "#4c7dbf" }
@@ -85,7 +85,7 @@ const StandardCounter: React.FC<StandardCounterProps> = ({ onBackToModeSelect })
     }, [isMobile]);
 
     return (
-        <div className="standard-counter">
+        <div className="dc-counter">
 
             <div className={`player-grid ${isMobile ? 'mobile-invert' : ''}`}>
                 {/* Jugador 2 arriba (rotado en móvil) */}
@@ -143,6 +143,6 @@ const StandardCounter: React.FC<StandardCounterProps> = ({ onBackToModeSelect })
     );
 };
 
-export default StandardCounter;
+export default DcCounter;
 
 

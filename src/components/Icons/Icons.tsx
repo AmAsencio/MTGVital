@@ -13,9 +13,9 @@ export function CardsIcon() {
     )
 }
 
-export function PeopleIcon() {
+export function PeopleIcon(props: React.SVGProps<SVGSVGElement>) {
     return (
-        <svg viewBox="0 0 16 16" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="none" stroke="#ce3112" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5">
+        <svg viewBox="0 0 16 16" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1" {...props} fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5">
             <circle cx="5" cy="9" r="2.25"></circle>
             <circle cx="11" cy="4" r="2.25"></circle>
             <path d="m7.75 9.25c0-1 .75-3 3.25-3s3.25 2 3.25 3m-12.5 5c0-1 .75-3 3.25-3s3.25 2 3.25 3"></path>

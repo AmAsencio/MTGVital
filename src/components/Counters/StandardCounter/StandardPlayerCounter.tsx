@@ -63,15 +63,15 @@ const PlayerCounter: React.FC<PlayerProps> = ({
                     <div className="counter-actions">
                         <button
                             className="counter-btn decrement-lg"
-                            onClick={() => onLifeChange(id, -5)}
-                        >
-                            -5
-                        </button>
-                        <button
-                            className="counter-btn decrement"
                             onClick={() => onLifeChange(id, -1)}
                         >
                             -1
+                        </button>
+                        <button
+                            className="counter-btn decrement"
+                            onClick={() => onLifeChange(id, -5)}
+                        >
+                            -5
                         </button>
                     </div>
 

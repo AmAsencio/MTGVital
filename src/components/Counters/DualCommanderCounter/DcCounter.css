@@ -1,4 +1,4 @@
-.standard-counter {
+.dc-counter {
     display: flex;
     flex-direction: column;
     max-width: 1200px;
@@ -121,7 +121,7 @@
 }
 
 @media (min-width: 601px) {
-    .standard-counter {
+    .dc-counter {
         flex-direction: column;
         height: 100vh;
     }

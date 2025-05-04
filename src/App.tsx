@@ -5,10 +5,10 @@ import Header from './components/Header/Header';
 import SelectMode, { GameMode } from './components/SelectMode/SelectMode';
 import StandardCounter from './components/Counters/StandardCounter/StandardCounter';
 import DcCounter from './components/Counters/DualCommanderCounter/DcCounter';
+import CmCounter from './components/Counters/Commander/CmCounter';
 import { useIsMobile } from './hooks/useIsMobile';
 
 // Importaremos los otros contadores cuando los creemos
-const CommanderCounter = () => <div className="counter-container">Contador para Commander</div>;
 const ArchenemyCounter = () => <div className="counter-container">Contador para Archenemy</div>;
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
       case 'standard':
         return <StandardCounter onBackToModeSelect={handleBackToSelection}/>;
       case 'commander':
-        return <CommanderCounter />;
+        return <CmCounter onBackToModeSelect={handleBackToSelection}/>;
       case 'commander1v1':
         return <DcCounter onBackToModeSelect={handleBackToSelection}/>;
       case 'archenemy':
